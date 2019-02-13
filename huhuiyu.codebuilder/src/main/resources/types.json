@@ -1,0 +1,7 @@
+[{
+  "mappingName": "java.util.Date",
+  "typeName": "java.sql.Timestamp"
+}, {
+  "mappingName": "java.util.Date",
+  "typeName": "java.sql.Date"
+}]
