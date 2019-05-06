@@ -12,7 +12,7 @@ targetCompatibility = 1.8
 [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 //项目版本号
-version = '1.0.0.0'
+version = '1.0.0'
 
 //项目的maven仓库
 repositories {
@@ -33,11 +33,10 @@ task copyJars(type:Copy) {
 
 //项目依赖的第三方库配置
 dependencies {
-  compile group: 'top.huhuiyu.api', name: 'huhuiyu-dbutils', version: '1.0.5'
-  compile group: 'top.huhuiyu.api', name: 'huhuiyu-freemarker', version: '1.0.0'
-  compile group: 'top.huhuiyu.api', name: 'huhuiyu-frame', version: '1.0.0'
-  compile 'com.alibaba:fastjson:1.2.49'
-  
   compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
   compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '7.0.0.jre8'
+  
+  compile group: 'top.huhuiyu.api', name: 'huhuiyu-dbutils', version: '1.1.0'
+  compile group: 'top.huhuiyu.api', name: 'huhuiyu-freemarker', version: '1.1.0'
+  compile group: 'top.huhuiyu.api', name: 'huhuiyu-frame', version: '1.1.0'
 }

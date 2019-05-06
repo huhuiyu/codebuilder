@@ -58,7 +58,7 @@ public class TemplateInfo extends BaseInfoBean {
   }
 
   public String getOutpath() {
-    return StringUtils.emptyTrimString(outpath);
+    return StringUtils.trim(outpath);
   }
 
   public void setOutpath(String outpath) {

@@ -113,8 +113,8 @@ public class CodeBuilderUtil {
    * @return 列名对应的字段名称
    */
   public String getColFieldName(TableColumnInfo columnInfo) {
-    String label = StringUtils.emptyTrimString(columnInfo.getLabel());
-    String name  = StringUtils.emptyTrimString(columnInfo.getName());
+    String label = StringUtils.trim(columnInfo.getLabel());
+    String name  = StringUtils.trim(columnInfo.getName());
     name = "".equals(label) ? name : label;
     return getFieldName(name);
   }
@@ -138,7 +138,7 @@ public class CodeBuilderUtil {
    * @return 名称对应的字段名称
    */
   public String getFieldName(String name) {
-    name = StringUtils.emptyTrimString(name);
+    name = StringUtils.trim(name);
     if (name.length() <= FIDLE_MIN_LENGTH) {
       return name.toLowerCase();
     }
@@ -229,7 +229,7 @@ public class CodeBuilderUtil {
    * @return 子包的完整名称
    */
   public String getSubPackage(String subpackage) {
-    subpackage = StringUtils.emptyTrimString(subpackage);
+    subpackage = StringUtils.trim(subpackage);
     if ("".equals(subpackage)) {
       return packageName;
     }
@@ -246,7 +246,7 @@ public class CodeBuilderUtil {
   public static String joinFilePath(String... filenames) {
     StringBuilder sb = new StringBuilder();
     for (String filename : filenames) {
-      if ("".equals(StringUtils.emptyTrimString(filename))) {
+      if ("".equals(StringUtils.trim(filename))) {
         continue;
       }
       sb.append(filename);

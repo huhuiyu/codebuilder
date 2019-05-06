@@ -65,7 +65,7 @@ dependencies {
   // springboot的aop依赖
   compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.0.6.RELEASE'
   // huhuiyu的api
-  compile group: 'top.huhuiyu.api', name: 'huhuiyu-fileutils', version: '1.0.5'
+  compile group: 'top.huhuiyu.api', name: 'huhuiyu-utils', version: '1.1.0'
   //springboot测试依赖
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
