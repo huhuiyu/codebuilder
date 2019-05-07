@@ -7,7 +7,7 @@
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <!-- 日志格式 -->
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} %n\t%msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}-%line%n\t%msg%n</pattern>
     </encoder>
   </appender>
 
@@ -22,7 +22,7 @@
     </rollingPolicy>
 
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS}[%-5level][%thread]%logger{36}%n\t%msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS}[%-5level][%thread]%logger{36}-%line%n\t%msg%n</pattern>
     </encoder>
   </appender>
 
