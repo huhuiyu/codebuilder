@@ -1,6 +1,7 @@
 package ${builderUtil.getSubPackage("base")};
 
 import top.huhuiyu.api.utils.mybase.BaseModel;
+import ${builderUtil.getSubPackage("entity")}.TbAdmin;
 import ${builderUtil.getSubPackage("entity")}.TbToken;
 import ${builderUtil.getSubPackage("entity")}.TbTokenInfo;
 
@@ -8,10 +9,10 @@ import ${builderUtil.getSubPackage("entity")}.TbTokenInfo;
  * model层基类
  * 
  * @author ${baseInfo.author}
- *
  */
 public class MyBaseModel extends BaseModel {
   private static final long serialVersionUID = ${builderUtil.serialVersionUID};
+  private TbAdmin loginAdmin;
   
   public MyBaseModel() {
   }
@@ -36,6 +37,14 @@ public class MyBaseModel extends BaseModel {
     TbTokenInfo tokenInfo = new TbTokenInfo();
     tokenInfo.setToken(getToken());
     return tokenInfo;
+  }
+
+  public TbAdmin getLoginAdmin() {
+    return loginAdmin;
+  }
+
+  public void setLoginAdmin(TbAdmin loginAdmin) {
+    this.loginAdmin = loginAdmin;
   }
 
 }

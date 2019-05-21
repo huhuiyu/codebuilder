@@ -25,6 +25,20 @@ create table TbTokenInfo
   constraint pkTbTokenInfo primary key(token,infoKey)
 )comment 'token附加信息表';
 
+create table TbAdmin
+(
+  aid integer auto_increment primary key not null comment '主键',
+  username varchar(20) unique not null comment '登录用户名',
+  password varchar(50) not null comment '登录密码',
+  salt varchar(20) not null comment '密码盐',
+  nickname varchar(50) not null comment '昵称',
+  enable enum('y','n') default 'y' not null comment '是否启用',
+  lastupdate timestamp on update now() default now() not null comment '最后更新时间'
+)comment '管理员信息表';
+
 /* 系统配置数据 */
 /* token过期时间配置，值是分钟数 */
 insert into TbConfig(configKey,configValue,lastupdate) values('token.timeout','14400',now());
+
+/* 默认管理员数据 */
+insert into TbAdmin(username,password,salt,nickname) values('admin','d48dc3be25a60dafc4db503fbc36d397','JX1XRO','内置管理员');
