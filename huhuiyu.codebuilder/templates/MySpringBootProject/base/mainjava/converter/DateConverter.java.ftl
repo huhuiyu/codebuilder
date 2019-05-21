@@ -1,6 +1,8 @@
 package ${builderUtil.getSubPackage("converter")};
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.regex.Pattern;
 import org.springframework.core.convert.converter.Converter;
@@ -16,21 +18,21 @@ import top.huhuiyu.api.utils.StringUtils;
 @Component
 public class DateConverter implements Converter<String, Date> {
   /**
-   * 1-短格式日期
+   * 日期补充时间
    */
-  private static final SimpleDateFormat SDF_SHORT = new SimpleDateFormat("yyyy-MM-dd");
+  private static final String            ZERO_TIME = " 00:00:00";
   /**
-   * 2-长格式日期
+   * 日期格式
    */
-  private static final SimpleDateFormat SDF_LONG = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  private static final DateTimeFormatter SDF       = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   /**
-   * 1-短日期正则
+   * 短日期正则
    */
-  private static final Pattern PSHORT = Pattern.compile("^\\d{4}[-]\\d{2}[-]\\d{2}$");
+  private static final Pattern           PSHORT    = Pattern.compile("^\\d{4}[-]\\d{2}[-]\\d{2}$");
   /**
-   * 2-长日期正则
+   * 长日期正则
    */
-  private static final Pattern PLONG = Pattern.compile("^\\d{4}[-]\\d{2}[-]\\d{2} \\d{2}:\\d{2}:\\d{2}$");
+  private static final Pattern           PLONG     = Pattern.compile("^\\d{4}[-]\\d{2}[-]\\d{2} \\d{2}:\\d{2}:\\d{2}$");
 
   @Override
   public Date convert(String source) {
@@ -41,12 +43,15 @@ public class DateConverter implements Converter<String, Date> {
     try {
       if (PLONG.matcher(source).matches()) {
         // 长日期格式
-        return SDF_LONG.parse(source);
-      } else if (PSHORT.matcher(source).matches()) {
-        // 短日期格式
-        return SDF_SHORT.parse(source);
+        return Date.from(LocalDateTime.parse(source, SDF).atZone(ZoneId.systemDefault()).toInstant());
       }
-    } catch (Exception ex) {
+      else if (PSHORT.matcher(source).matches()) {
+        // 短日期格式
+        return Date.from(LocalDateTime.parse(source + ZERO_TIME, SDF).atZone(ZoneId.systemDefault()).toInstant());
+      }
+    }
+    catch (Exception ex) {
+      ex.printStackTrace();
     }
     return null;
   }

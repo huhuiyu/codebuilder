@@ -12,7 +12,7 @@ buildscript {
   }
   //springboot gradle 插件依赖
   dependencies {
-    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.6.RELEASE")
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.5.RELEASE")
   }
 }
 
@@ -51,21 +51,25 @@ repositories {
 //项目依赖的第三方库配置
 dependencies {
   //springboot依赖
-  compile("org.springframework.boot:spring-boot-starter-web")
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.1.5.RELEASE'
   //springboot开发工具，可以热部署代码（不要用于生成环境）
-  compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.6.RELEASE'
+  compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.1.5.RELEASE'
   //springboot整合mybatis
-  compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2")
+  compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1")
   // mysql jdbc驱动
   compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
   // fastjson依赖
   compile 'com.alibaba:fastjson:1.2.49'
   // pagehelper的springboot依赖
-  compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.9'
+  compile group: 'com.github.pagehelper', name: 'pagehelper-spring-boot-starter', version: '1.2.10'
   // springboot的aop依赖
-  compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.0.6.RELEASE'
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.1.5.RELEASE'
+  // swagger2依赖
+  compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+  // swagger2界面依赖
+  compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
   // huhuiyu的api
   compile group: 'top.huhuiyu.api', name: 'huhuiyu-utils', version: '1.1.0'
   //springboot测试依赖
-  testCompile('org.springframework.boot:spring-boot-starter-test')
+  testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.5.RELEASE'
 }

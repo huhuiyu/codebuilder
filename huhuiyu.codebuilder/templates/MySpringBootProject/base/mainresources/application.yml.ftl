@@ -9,10 +9,6 @@ spring:
     encoding:
       force: true
       charset: UTF-8
-  mvc:
-    throw-exception-if-no-handler-found: true
-  resources:
-    add-mappings: false
   datasource:
     driver-class-name: ${dataSourceInfo.driver}
     url: ${dataSourceInfo.url}

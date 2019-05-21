@@ -1,6 +1,6 @@
 use information_schema;
 drop database if exists ${baseInfo.projectName};
-create database ${baseInfo.projectName} default charset utf8 collate utf8_general_ci;
+create database ${baseInfo.projectName} default charset utf8mb4 collate utf8mb4_general_ci;
 use ${baseInfo.projectName};
 
 create table TbConfig
@@ -27,9 +27,4 @@ create table TbTokenInfo
 
 /* 系统配置数据 */
 /* token过期时间配置，值是分钟数 */
-insert into TbConfig(configKey,configValue,lastupdate) values('token.timeout','10',now());
-
-/* 查询 */
-select configKey,configValue,lastupdate from TbConfig;
-select token,lastupdate from TbToken;
-select token,infoKey,info,lastupdate from TbTokenInfo;
+insert into TbConfig(configKey,configValue,lastupdate) values('token.timeout','14400',now());
