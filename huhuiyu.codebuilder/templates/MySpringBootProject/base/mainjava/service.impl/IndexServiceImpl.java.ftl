@@ -12,7 +12,6 @@ import ${builderUtil.getSubPackage("service")}.IndexService;
  * 首页服务层实现
  * 
  * @author ${baseInfo.author}
- *
  */
 @Service
 @Transactional(rollbackFor = Exception.class)

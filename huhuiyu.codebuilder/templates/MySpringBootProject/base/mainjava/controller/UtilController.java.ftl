@@ -47,21 +47,21 @@ public class UtilController {
   @ApiOperation(value = "管理员登陆")
   @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌"), @ApiImplicitParam(name = "tbAdmin.username", value = "用户名", required = true), @ApiImplicitParam(name = "tbAdmin.password", value = "密码", required = true) })
   @PostMapping("/adminLogin")
-  JsonMessage adminLogin(UtilModel model) throws Exception {
+  public JsonMessage adminLogin(UtilModel model) throws Exception {
     return utilService.adminLogin(model);
   }
 
   @ApiOperation(value = "管理员登出")
   @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/adminLogout")
-  JsonMessage adminLogout(UtilModel model) throws Exception {
+  public JsonMessage adminLogout(UtilModel model) throws Exception {
     return utilService.adminLogout(model);
   }
 
   @ApiOperation(value = "获取管理员信息")
   @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/getAdminLoginInfo")
-  JsonMessage getAdminLoginInfo(UtilModel model) throws Exception {
+  public JsonMessage getAdminLoginInfo(UtilModel model) throws Exception {
     return utilService.getAdminLoginInfo(model);
   }
 

@@ -19,7 +19,7 @@ import ${builderUtil.getSubPackage("base")}.MyBaseModel;
 @Api(value = "授权测试控制器", tags = { "登陆授权测试" })
 @RestController
 @RequestMapping("/auth")
-public class IndexController  implements INeedAdmin {
+public class AuthController  implements INeedAdmin {
 
   @ApiOperation(value = "管理员登陆测试")
   @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })

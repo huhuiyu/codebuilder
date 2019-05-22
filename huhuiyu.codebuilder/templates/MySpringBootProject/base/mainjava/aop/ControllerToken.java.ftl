@@ -27,7 +27,7 @@ public class ControllerToken extends BaseControllerAop {
   /**
    * 需要管理员登陆
    */
-  int NEED_ADMIN = 1000;
+  public static final int NEED_ADMIN = 1000;
   
   private static final Logger log = LoggerFactory.getLogger(ControllerToken.class);
 

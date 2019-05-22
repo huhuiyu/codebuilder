@@ -67,4 +67,34 @@
   <delete id="deleteImageCode" parameterType="TbTokenInfo">
     delete from TbTokenInfo where token=${r'#'}{token} and infoKey='imagecode'
   </delete>
+  
+  <!-- 管理员相关 -->
+  <insert id="addAdmin" parameterType="TbTokenInfo">
+    insert into TbTokenInfo(token,infoKey,info,lastupdate)
+    values(${r'#'}{token},'loginAdmin',${r'#'}{info},now())
+  </insert>
+
+  <select id="queryAdmin" parameterType="TbTokenInfo" resultType="TbTokenInfo">
+    select token,infoKey,info,lastupdate from TbTokenInfo
+    where token=${r'#'}{token} and infoKey='loginAdmin'
+  </select>
+
+  <update id="updateAdmin" parameterType="TbTokenInfo">
+    update TbTokenInfo set info=${r'#'}{info},lastupdate=now()
+    where token=${r'#'}{token} and infoKey='loginAdmin'
+  </update>
+
+  <delete id="deleteAdmin" parameterType="TbTokenInfo">
+    delete from TbTokenInfo where token=${r'#'}{token} and infoKey='loginAdmin'
+  </delete>
+
+  <select id="queryAdminByName" parameterType="TbAdmin" resultType="TbAdmin">
+    select aid,username,password,salt,nickname,enable,lastupdate from TbAdmin
+    where username=${r'#'}{username}
+  </select>
+
+  <select id="queryAdminByToken" parameterType="TbTokenInfo" resultType="TbAdmin">
+    select aid,username,password,salt,nickname,enable,lastupdate from TbAdmin
+    where aid=(select info from TbTokenInfo where token=${r'#'}{token} and infoKey='loginAdmin')
+  </select>
 </mapper>
