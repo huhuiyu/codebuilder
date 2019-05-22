@@ -29,6 +29,12 @@ public class UtilController {
 
   @Autowired
   private UtilService utilService;
+  
+  @ApiOperation(value = "获取token信息")
+  @PostMapping("/getToken")
+  public JsonMessage getToken(UtilModel model) throws Exception {
+    return JsonMessage.getSuccess("");
+  }
 
   @ApiOperation(value = "图片验证码")
   @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
