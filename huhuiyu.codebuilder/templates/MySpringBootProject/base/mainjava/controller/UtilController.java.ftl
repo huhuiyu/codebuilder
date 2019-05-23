@@ -50,7 +50,7 @@ public class UtilController {
   }
 
   @ApiOperation(value = "管理员登陆")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "tbAdmin.username", value = "用户名", required = true), @ApiImplicitParam(name = "tbAdmin.password", value = "密码", required = true) })
+  @ApiImplicitParams({ @ApiImplicitParam(name = "tbAdmin.username", value = "用户名", paramType = "query", required = true), @ApiImplicitParam(name = "tbAdmin.password", value = "密码", paramType = "query", required = true) })
   @PostMapping("/adminLogin")
   public JsonMessage adminLogin(UtilModel model) throws Exception {
     return utilService.adminLogin(model);
