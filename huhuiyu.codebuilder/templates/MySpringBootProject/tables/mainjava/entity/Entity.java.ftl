@@ -1,5 +1,6 @@
 package ${builderUtil.getSubPackage("entity")};
 
+import io.swagger.annotations.ApiParam;
 import top.huhuiyu.api.utils.mybase.BaseEntity;
 
 /**
@@ -13,6 +14,7 @@ public class ${builderUtil.getClassName(tableInfo)} extends BaseEntity {
   private static final long serialVersionUID = ${builderUtil.serialVersionUID};
   
 <#list tableInfo.columnInfos as column>
+  @ApiParam(hidden = true)
   private ${builderUtil.getColType(column)} ${builderUtil.getColFieldName(column)};
 </#list>
 

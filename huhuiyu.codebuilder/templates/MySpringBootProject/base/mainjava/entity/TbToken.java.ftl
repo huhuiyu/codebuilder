@@ -1,6 +1,7 @@
 package ${builderUtil.getSubPackage("entity")};
 
 import java.util.Date;
+import io.swagger.annotations.ApiParam;
 import top.huhuiyu.api.utils.mybase.BaseEntity;
 
 /**
@@ -11,8 +12,11 @@ import top.huhuiyu.api.utils.mybase.BaseEntity;
  */
 public class TbToken extends BaseEntity {
   private static final long serialVersionUID = ${builderUtil.serialVersionUID};
+  @ApiParam(hidden = true)
   private String token;
+  @ApiParam(hidden = true)
   private Integer uid;
+  @ApiParam(hidden = true)
   private Date lastupdate;
 
   public TbToken() {

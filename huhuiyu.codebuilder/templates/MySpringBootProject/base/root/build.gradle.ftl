@@ -68,6 +68,8 @@ dependencies {
   compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
   // swagger2界面依赖
   compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+  // swagger-ui-layer界面依赖
+  compile group: 'com.github.caspar-chen', name: 'swagger-ui-layer', version: '1.1.3'
   // huhuiyu的api
   compile group: 'top.huhuiyu.api', name: 'huhuiyu-fileutils', version: '1.1.1'
   //springboot测试依赖

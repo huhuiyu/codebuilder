@@ -88,7 +88,9 @@ public class ControllerToken extends BaseControllerAop {
     log.debug(String.format("token信息：%s", token));
     // 后台管理员登陆拦截
     if (!processAuthAdmin(pjp)) {
-      return JsonMessage.getFail(NEED_ADMIN, "需要登录");
+      JsonMessage message = JsonMessage.getFail(NEED_ADMIN, "需要登录");
+      message.setToken(token.getToken());
+      return message;
     }
     Object result = pjp.proceed();
     // 如果应答为JsonMessage且token存在就应答回去

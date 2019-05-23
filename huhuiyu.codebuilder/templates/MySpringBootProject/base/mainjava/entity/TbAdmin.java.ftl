@@ -1,5 +1,6 @@
 package top.huhuiyu.codebuilder.entity;
 
+import io.swagger.annotations.ApiParam;
 import top.huhuiyu.api.utils.mybase.BaseEntity;
 
 /**
@@ -11,12 +12,19 @@ public class TbAdmin extends BaseEntity {
 
   private static final long serialVersionUID = ${builderUtil.serialVersionUID};
 
+  @ApiParam(hidden = true)
   private java.lang.Integer aid;
+  @ApiParam(hidden = true)
   private java.lang.String  username;
+  @ApiParam(hidden = true)
   private java.lang.String  password;
+  @ApiParam(hidden = true)
   private java.lang.String  salt;
+  @ApiParam(hidden = true)
   private java.lang.String  nickname;
+  @ApiParam(hidden = true)
   private java.lang.String  enable;
+  @ApiParam(hidden = true)
   private java.util.Date    lastupdate;
 
   public TbAdmin() {

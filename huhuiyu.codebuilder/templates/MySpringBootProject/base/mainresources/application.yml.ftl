@@ -16,3 +16,4 @@ spring:
     password: ${dataSourceInfo.password}
 mybatis:
   config-location: classpath:mybatis-config.xml
+swagger-enable: true

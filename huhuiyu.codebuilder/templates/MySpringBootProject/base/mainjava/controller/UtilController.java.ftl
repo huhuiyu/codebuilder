@@ -37,7 +37,6 @@ public class UtilController {
   }
 
   @ApiOperation(value = "图片验证码")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @GetMapping("/validate.jpg")
   public void imageCode(UtilModel model, HttpServletResponse response) throws Exception {
     // 自定义应答类型为图片
@@ -51,21 +50,19 @@ public class UtilController {
   }
 
   @ApiOperation(value = "管理员登陆")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌"), @ApiImplicitParam(name = "tbAdmin.username", value = "用户名", required = true), @ApiImplicitParam(name = "tbAdmin.password", value = "密码", required = true) })
+  @ApiImplicitParams({ @ApiImplicitParam(name = "tbAdmin.username", value = "用户名", required = true), @ApiImplicitParam(name = "tbAdmin.password", value = "密码", required = true) })
   @PostMapping("/adminLogin")
   public JsonMessage adminLogin(UtilModel model) throws Exception {
     return utilService.adminLogin(model);
   }
 
   @ApiOperation(value = "管理员登出")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/adminLogout")
   public JsonMessage adminLogout(UtilModel model) throws Exception {
     return utilService.adminLogout(model);
   }
 
   @ApiOperation(value = "获取管理员信息")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/getAdminLoginInfo")
   public JsonMessage getAdminLoginInfo(UtilModel model) throws Exception {
     return utilService.getAdminLoginInfo(model);

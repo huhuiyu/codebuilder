@@ -16,7 +16,6 @@ import ${builderUtil.getSubPackage("service")}.${builderUtil.getClassName(tableI
  * ${builderUtil.getClassName(tableInfo)}的控制器
  * 
  * @author ${baseInfo.author}
- *
  */
  @Api(tags = { "${builderUtil.getClassName(tableInfo)}" })
 @RestController
@@ -27,35 +26,31 @@ public class ${builderUtil.getClassName(tableInfo)}Controller {
   private ${builderUtil.getClassName(tableInfo)}Service ${builderUtil.getTableFieldName(tableInfo)}Service;
 
   @ApiOperation(value = "查询全部")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌"), @ApiImplicitParam(name = "page.pageNumber", value = "分页页码"), @ApiImplicitParam(name = "page.pageSize", value = "分页大小") })
+  @ApiImplicitParams({ @ApiImplicitParam(name = "page.pageNumber", value = "分页页码"), @ApiImplicitParam(name = "page.pageSize", value = "分页大小") })
   @PostMapping("/queryAll")
   public JsonMessage queryAll(${builderUtil.getClassName(tableInfo)}Model model) throws Exception {
     return ${builderUtil.getTableFieldName(tableInfo)}Service.queryAll(model);
   }
 
   @ApiOperation(value = "添加")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/add")
   public JsonMessage add(${builderUtil.getClassName(tableInfo)}Model model) throws Exception {
     return ${builderUtil.getTableFieldName(tableInfo)}Service.add(model);
   }
 
   @ApiOperation(value = "修改")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/update")
   public JsonMessage update(${builderUtil.getClassName(tableInfo)}Model model) throws Exception {
     return ${builderUtil.getTableFieldName(tableInfo)}Service.update(model);
   }
 
   @ApiOperation(value = "删除")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/delete")
   public JsonMessage delete(${builderUtil.getClassName(tableInfo)}Model model) throws Exception {
     return ${builderUtil.getTableFieldName(tableInfo)}Service.delete(model);
   }
 
   @ApiOperation(value = "主键查询")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "token", value = "认证令牌") })
   @PostMapping("/queryByKey")
   public JsonMessage queryByKey(${builderUtil.getClassName(tableInfo)}Model model) throws Exception {
     return ${builderUtil.getTableFieldName(tableInfo)}Service.queryByKey(model);
