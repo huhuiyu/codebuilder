@@ -21,12 +21,19 @@ import ${builderUtil.getSubPackage("service")}.${builderUtil.getClassName(tableI
 @RestController
 @RequestMapping("/${builderUtil.getClassName(tableInfo)}")
 public class ${builderUtil.getClassName(tableInfo)}Controller {
-
+  
+  /*
+   * 所有参数模板
+   <#list tableInfo.columnInfos as column>
+   * @ApiImplicitParam(name = "${builderUtil.getTableFieldName(tableInfo)}.${builderUtil.getColFieldName(column)}", value = "${builderUtil.getTableFieldName(tableInfo)}.${builderUtil.getColFieldName(column)}描述", paramType = "query")
+   </#list>
+   */
+   
   @Autowired
   private ${builderUtil.getClassName(tableInfo)}Service ${builderUtil.getTableFieldName(tableInfo)}Service;
 
   @ApiOperation(value = "查询全部")
-  @ApiImplicitParams({ @ApiImplicitParam(name = "page.pageNumber", value = "分页页码"), @ApiImplicitParam(name = "page.pageSize", value = "分页大小") })
+  @ApiImplicitParams({ @ApiImplicitParam(name = "page.pageNumber", value = "分页页码", paramType = "query"), @ApiImplicitParam(name = "page.pageSize", value = "分页大小", paramType = "query") })
   @PostMapping("/queryAll")
   public JsonMessage queryAll(${builderUtil.getClassName(tableInfo)}Model model) throws Exception {
     return ${builderUtil.getTableFieldName(tableInfo)}Service.queryAll(model);
