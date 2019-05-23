@@ -1,7 +1,7 @@
 package ${builderUtil.getSubPackage("controller")};
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -25,7 +25,7 @@ public class IndexController  implements INoToken {
 
   @ApiOperation(value = "首页")
   @ApiImplicitParams(@ApiImplicitParam(name = "echo", value = "回声参数"))
-  @RequestMapping("")
+  @PostMapping("")
   public JsonMessage index(IndexModel model) throws Exception {
     return indexService.index(model);
   }
