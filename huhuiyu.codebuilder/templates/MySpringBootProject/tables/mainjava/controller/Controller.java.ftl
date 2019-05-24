@@ -21,14 +21,7 @@ import ${builderUtil.getSubPackage("service")}.${builderUtil.getClassName(tableI
 @RestController
 @RequestMapping("/${builderUtil.getClassName(tableInfo)}")
 public class ${builderUtil.getClassName(tableInfo)}Controller {
-  
-  /*
-   * 所有参数模板
-   <#list tableInfo.columnInfos as column>
-   * @ApiImplicitParam(name = "${builderUtil.getTableFieldName(tableInfo)}.${builderUtil.getColFieldName(column)}", value = "${builderUtil.getTableFieldName(tableInfo)}.${builderUtil.getColFieldName(column)}描述", paramType = "query")
-   </#list>
-   */
-   
+
   @Autowired
   private ${builderUtil.getClassName(tableInfo)}Service ${builderUtil.getTableFieldName(tableInfo)}Service;
 

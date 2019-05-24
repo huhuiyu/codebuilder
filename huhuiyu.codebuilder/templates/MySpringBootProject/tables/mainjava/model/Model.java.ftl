@@ -26,4 +26,11 @@ public class ${builderUtil.getClassName(tableInfo)}Model extends MyBasePageModel
     this.${builderUtil.getTableFieldName(tableInfo)} = ${builderUtil.getTableFieldName(tableInfo)};
   }
   
+  /*
+   * 所有参数模板
+   <#list tableInfo.columnInfos as column>
+   * @ApiImplicitParam(name = "${builderUtil.getTableFieldName(tableInfo)}.${builderUtil.getColFieldName(column)}", value = "描述：${builderUtil.getColFieldName(column)}", paramType = "query")
+   </#list>
+   */
+
 }
