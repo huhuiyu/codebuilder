@@ -1,4 +1,4 @@
-package top.huhuiyu.codebuilder.config;
+package ${builderUtil.getSubPackage("config")};
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ComponentScan(basePackages = { "top.huhuiyu.codebuilder" })
+@ComponentScan(basePackages = { "${builderUtil.getSubPackage("")}" })
 @ConditionalOnProperty(value = { "swagger-enable" }, havingValue = "true")
 public class SwaggerConfig {
 
