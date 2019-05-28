@@ -17,6 +17,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * swagger配置
+ * 
+ * @author ${baseInfo.author}
+ */
 @Configuration
 @EnableSwagger2
 @ComponentScan(basePackages = { "${builderUtil.getSubPackage("")}" })
