@@ -22,7 +22,8 @@ public class IndexServiceImpl implements IndexService {
   @Override
   public JsonMessage index(IndexModel model) throws Exception {
     JsonMessage message = JsonMessage.getSuccess(model.getEcho());
-    message.getDatas().put("now", utilsDAO.queryTime());
+    message.getDatas().put("time", utilsDAO.queryTime());
+    message.getDatas().put("timestamp", utilsDAO.queryTimestamp());
     return message;
   }
 }

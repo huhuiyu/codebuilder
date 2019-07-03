@@ -1,8 +1,6 @@
 package ${builderUtil.getSubPackage("service")};
 
-import java.util.Date;
 import top.huhuiyu.api.utils.mybase.JsonMessage;
-import ${builderUtil.getSubPackage("entity")}.TbToken;
 import ${builderUtil.getSubPackage("entity")}.TbTokenInfo;
 import ${builderUtil.getSubPackage("model")}.UtilModel;
 
@@ -14,37 +12,25 @@ import ${builderUtil.getSubPackage("model")}.UtilModel;
 public interface UtilService {
 
  /**
-   * 生成图片校验码
-   * 
-   * @param model
-   *              页面数据
-   * @return 图片校验码
-   * @throws Exception
-   *                   处理发生异常
+   * token存放的key
    */
-  String makeImageCode(UtilModel model) throws Exception;
-
+  String TOKEN                    = "ip";
   /**
-   * 校验图片校验码是否正确，服务器端的图片校验码只能使用一次
-   * 
-   * @param tokenInfo
-   *                  带图片校验码信息的TbTokenInfo
-   * @return 图片校验码是否正确
-   * @throws Exception
-   *                   处理发生异常
+   * 图片校验码存放的key
    */
-  boolean checkImageCode(TbTokenInfo tokenInfo) throws Exception;
-
+  String IMAGE_CODE               = "imageCode";
   /**
-   * 检查token是否存在，不存在就返回新的
-   * 
-   * @param token
-   *              token信息
-   * @return token是否存在
-   * @throws Exception
-   *                   处理发生异常
+   * 管理员登陆存放的key
    */
-  TbToken checkToken(TbToken token) throws Exception;
+  String LOGIN_ADMIN              = "admin";
+  /**
+   * 图片校验码干扰线数量配置key
+   */
+  String CONFIG_IMAGE_CODE_AMOUNT = "image_code_amount";
+  /**
+   * 图片校验码长度配置key
+   */
+  String CONFIG_IMAGE_CODE_LENGTH = "image_code_length";
 
   /**
    * 删除所有过期token
@@ -56,44 +42,68 @@ public interface UtilService {
   int deleteTokens() throws Exception;
 
   /**
-   * 查询数据库当前时间
+   * 检测token信息，存在就更新时间戳，否则就创建新的
    * 
-   * @return 数据库当前时间
+   * @param token
+   *              token信息
+   * @return token信息
    * @throws Exception
    *                   处理发生异常
    */
-  Date queryNow() throws Exception;
+  TbTokenInfo checkToken(TbTokenInfo token) throws Exception;
 
   /**
-   * 获取登陆管理员信息
+   * 创建图片校验码
+   * 
+   * @param token
+   *              token值
+   * @return 图片校验码
+   * @throws Exception
+   *                   处理发生异常
+   */
+  String makeImageCode(String token) throws Exception;
+
+  /**
+   * 检测图片校验码是否正确
+   * 
+   * @param tokenInfo
+   *                  校验参数信息
+   * @return 图片校验码是否正确
+   * @throws Exception
+   *                   处理发生异常
+   */
+  boolean checkImageCode(TbTokenInfo tokenInfo) throws Exception;
+
+  /**
+   * 管理用户登陆
    * 
    * @param model
-   *              表单数据
-   * @return 登陆管理员信息
+   *              请求参数
+   * @return 用户登陆结果
+   * @throws Exception
+   *                   处理发生异常
+   */
+  JsonMessage adminLogin(UtilModel model) throws Exception;
+
+  /**
+   * 查询token中的管理员信息
+   * 
+   * @param model
+   *              请求参数
+   * @return token中的管理员信息
    * @throws Exception
    *                   处理发生异常
    */
   JsonMessage getAdminLoginInfo(UtilModel model) throws Exception;
 
   /**
-   * 管理员登出
+   * 管理用户登出
    * 
    * @param model
-   *              表单数据
-   * @return 管理员登出结果
+   *              请求参数
+   * @return 用户登出结果
    * @throws Exception
    *                   处理发生异常
    */
   JsonMessage adminLogout(UtilModel model) throws Exception;
-
-  /**
-   * 管理员登陆
-   * 
-   * @param model
-   *              表单数据
-   * @return 管理员登陆结果
-   * @throws Exception
-   *                   处理发生异常
-   */
-  JsonMessage adminLogin(UtilModel model) throws Exception;
 }

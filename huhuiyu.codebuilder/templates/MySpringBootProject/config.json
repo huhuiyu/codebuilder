@@ -80,10 +80,6 @@
     "outpath": "src/main/java",
     "subpackage": "dao"
   }, {
-    "templatePath": "base/mainjava/entity",
-    "outpath": "src/main/java",
-    "subpackage": "entity"
-  }, {
     "templatePath": "base/mainjava/model",
     "outpath": "src/main/java",
     "subpackage": "model"

@@ -3,6 +3,8 @@ package ${builderUtil.getSubPackage("utils")};
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * ip工具
@@ -15,7 +17,29 @@ public class IpUtils {
   private static final String UNKNOWN    = "unknown";
   private static final String LOCAL_IP   = "127.0.0.1";
 
-  public static String getIpAddr(HttpServletRequest request) {
+  /**
+   * 获取客户端ip地址
+   * 
+   * @return 客户端ip地址
+   * @throws Exception
+   *                   处理发生异常
+   */
+  public static String getIpAddress() throws Exception {
+    ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+    HttpServletRequest       request                  = servletRequestAttributes.getRequest();
+    return getIpAddr(request);
+  }
+
+  /**
+   * 获取客户端ip地址
+   * 
+   * @param request
+   *                客户端请求
+   * @return 客户端ip地址
+   * @throws Exception
+   *                   处理发生异常
+   */
+  public static String getIpAddr(HttpServletRequest request) throws Exception {
     String ipAddress = null;
     try {
       ipAddress = request.getHeader("x-forwarded-for");

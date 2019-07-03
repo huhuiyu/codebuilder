@@ -12,7 +12,6 @@ import top.huhuiyu.api.utils.mybase.JsonMessage;
 import ${builderUtil.getSubPackage("base")}.MyBaseModel;
 import ${builderUtil.getSubPackage("dao")}.UtilsDAO;
 import ${builderUtil.getSubPackage("entity")}.TbAdmin;
-import ${builderUtil.getSubPackage("entity")}.TbToken;
 import ${builderUtil.getSubPackage("entity")}.TbTokenInfo;
 import ${builderUtil.getSubPackage("service")}.UtilService;
 
@@ -28,7 +27,7 @@ public class ControllerToken extends BaseControllerAop {
    * 需要管理员登陆
    */
   public static final int NEED_ADMIN = 1000;
-  
+
   private static final Logger log = LoggerFactory.getLogger(ControllerToken.class);
 
   @Autowired
@@ -36,6 +35,15 @@ public class ControllerToken extends BaseControllerAop {
   @Autowired
   private UtilsDAO    utilsDAO;
 
+  /**
+   * 处理管理员登陆拦截
+   * 
+   * @param pjp
+   *            切面信息
+   * @return 是否登陆
+   * @throws Exception
+   *                   处理发生错误
+   */
   private boolean processAuthAdmin(ProceedingJoinPoint pjp) throws Exception {
     if (!(pjp.getTarget() instanceof INeedAdmin)) {
       return true;
@@ -45,7 +53,8 @@ public class ControllerToken extends BaseControllerAop {
       return true;
     }
     TbTokenInfo tbTokenInfo = model.makeTbTokenInfo();
-    TbAdmin     user        = utilsDAO.queryAdminByToken(tbTokenInfo);
+    tbTokenInfo.setInfoKey(UtilService.LOGIN_ADMIN);
+    TbAdmin user = utilsDAO.queryAdminByToken(tbTokenInfo);
     log.debug(String.format("user=====>", user));
     if (user == null) {
       return false;
@@ -53,10 +62,19 @@ public class ControllerToken extends BaseControllerAop {
     model.setLoginAdmin(user);
     return true;
   }
-  
+
+  /**
+   * 获取基础model信息
+   * 
+   * @param pjp
+   *            切面信息
+   * @return model信息
+   * @throws Exception
+   *                   处理发生错误
+   */
   private MyBaseModel getMyBaseModel(ProceedingJoinPoint pjp) throws Exception {
     MyBaseModel model = null;
-    Object[] args = pjp.getArgs();
+    Object[]    args  = pjp.getArgs();
     for (Object arg : args) {
       if (arg instanceof MyBaseModel) {
         model = (MyBaseModel) arg;
@@ -66,13 +84,22 @@ public class ControllerToken extends BaseControllerAop {
     return model;
   }
 
-  private TbToken processToken(ProceedingJoinPoint pjp) throws Exception {
+  /**
+   * 处理token信息
+   * 
+   * @param pjp
+   *            切面信息
+   * @return token信息
+   * @throws Exception
+   *                   处理发生错误
+   */
+  private TbTokenInfo processToken(ProceedingJoinPoint pjp) throws Exception {
     if ((pjp.getTarget() instanceof INoToken)) {
       return null;
     }
     MyBaseModel model = getMyBaseModel(pjp);
     if (model != null) {
-      TbToken token = model.makeTbToken();
+      TbTokenInfo token = model.makeTbTokenInfo();
       // 校验并更新token信息
       token = utilService.checkToken(token);
       model.setToken(token.getToken());
@@ -84,7 +111,7 @@ public class ControllerToken extends BaseControllerAop {
   @Around("controller()")
   public Object around(ProceedingJoinPoint pjp) throws Throwable {
     log.debug("控制器切面token处理");
-    TbToken token = processToken(pjp);
+    TbTokenInfo token = processToken(pjp);
     log.debug(String.format("token信息：%s", token));
     // 后台管理员登陆拦截
     if (!processAuthAdmin(pjp)) {
@@ -94,12 +121,10 @@ public class ControllerToken extends BaseControllerAop {
     }
     Object result = pjp.proceed();
     // 如果应答为JsonMessage且token存在就应答回去
-    if (token != null && result instanceof JsonMessage) {
+    if ((token != null) && (result instanceof JsonMessage)) {
       JsonMessage message = (JsonMessage) result;
       message.setToken(token.getToken());
     }
     return result;
   }
-
 }
-

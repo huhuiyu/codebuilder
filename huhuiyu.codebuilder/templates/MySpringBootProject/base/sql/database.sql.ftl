@@ -1,31 +1,33 @@
-use information_schema;
-drop database if exists ${baseInfo.projectName};
-create database ${baseInfo.projectName} default charset utf8mb4 collate utf8mb4_general_ci;
-use ${baseInfo.projectName};
+/* 框架必要的基础功能表 */
 
-create table TbConfig
+create table tb_config
 (
-  configKey varchar(50) primary key comment '配置键值，主键',
-  configValue varchar(2000) comment '配置值',
-  lastupdate timestamp comment '最后更新时间'
+  cid integer auto_increment primary key not null comment '主键',
+  config_key varchar(50) unique comment '配置键值',
+  config_value varchar(2000) comment '配置值',
+  lastupdate timestamp on update now() default now() not null comment '最后更新时间'
 )comment '系统配置表';
 
-create table TbToken
+create table tb_token_info
 (
-  token varchar(50) primary key comment '令牌值，自然主键',
-  lastupdate timestamp comment '令牌环最后更新时间'
-)comment 'token追踪表';
-
-create table TbTokenInfo
-(
-  token varchar(50) comment '令牌',
-  infoKey varchar(50) comment '令牌信息key值',
+  tiid integer auto_increment primary key not null comment '主键',
+  token varchar(50) not null comment '令牌',
+  info_key varchar(50) comment '令牌信息key值',
   info varchar(2000) comment '令牌信息值',
-  lastupdate timestamp comment '令牌信息最后更新时间',
-  constraint pkTbTokenInfo primary key(token,infoKey)
-)comment 'token附加信息表';
+  lastupdate timestamp on update now() default now() not null comment '最后更新时间',
+  constraint unique_tb_tokeninfo_token_info_key unique(token,info_key)
+)comment 'token信息表';
 
-create table TbAdmin
+create table tb_role
+(
+  rid integer auto_increment primary key comment '主键',
+  role_name varchar(50) unique not null comment '角色名称',
+  role_info varchar(200) not null comment '角色描述',
+  enable enum('y','n') default 'y' not null comment '是否启用',
+  lastupdate timestamp on update now() default now() not null comment '最后更新时间'
+)comment '角色信息表';
+
+create table tb_admin
 (
   aid integer auto_increment primary key not null comment '主键',
   username varchar(20) unique not null comment '登录用户名',
@@ -36,9 +38,29 @@ create table TbAdmin
   lastupdate timestamp on update now() default now() not null comment '最后更新时间'
 )comment '管理员信息表';
 
+create table tb_admin_role
+(
+  arid integer auto_increment primary key comment '主键',
+  aid integer not null comment '管理员id',
+  rid integer not null comment '角色id',
+  lastupdate timestamp on update now() default now() not null comment '最后更新时间',
+  constraint fk_tb_admin_role_aid foreign key(aid) references tb_admin(aid),
+  constraint fk_tb_admin_role_rid foreign key(rid) references tb_role(rid),
+  constraint unique_tb_admin_role_aid_rid unique(aid,rid)
+)comment '管理员角色表';
+
 /* 系统配置数据 */
 /* token过期时间配置，值是分钟数 */
-insert into TbConfig(configKey,configValue,lastupdate) values('token.timeout','14400',now());
+insert into tb_config(config_key,config_value) values('token_timeout','14400');
+/* 图片校验码干扰线数量 */
+insert into tb_config(config_key,config_value) values('image_code_amount',20);
+/* 图片校验码长度 */
+insert into tb_config(config_key,config_value) values('image_code_length',5);
 
-/* 默认管理员数据 */
-insert into TbAdmin(username,password,salt,nickname) values('admin','d48dc3be25a60dafc4db503fbc36d397','JX1XRO','内置管理员');
+/* 管理员角色信息 */
+insert into tb_role(role_name,role_info) values('超级管理员','可以管理全部信息的管理员');
+insert into tb_role(role_name,role_info) values('管理员','可以权限管理以外全部信息的管理员');
+insert into tb_role(role_name,role_info) values('用户','可以权限应用信息的管理员');
+
+/* 默认管理员数据,密码是admin_pwd*/
+insert into tb_admin(username,password,salt,nickname) values('admin','d48dc3be25a60dafc4db503fbc36d397','JX1XRO','内置管理员');
