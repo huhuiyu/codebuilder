@@ -36,7 +36,7 @@ dependencies {
   compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
   compile group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '7.0.0.jre8'
   
-  compile group: 'top.huhuiyu.api', name: 'huhuiyu-dbutils', version: '1.1.1'
+  compile group: 'top.huhuiyu.api', name: 'huhuiyu-dbutils', version: '1.1.2'
   compile group: 'top.huhuiyu.api', name: 'huhuiyu-freemarker', version: '1.1.0'
   compile group: 'top.huhuiyu.api', name: 'huhuiyu-frame', version: '1.1.0'
 }

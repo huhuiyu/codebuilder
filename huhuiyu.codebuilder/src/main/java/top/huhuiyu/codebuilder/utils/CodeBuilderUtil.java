@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import top.huhuiyu.api.dbutils.DbUtils;
 import top.huhuiyu.api.dbutils.meta.TableColumnInfo;
 import top.huhuiyu.api.dbutils.meta.TableInfo;
 import top.huhuiyu.api.fileutil.FileUtil;
@@ -20,18 +21,15 @@ import top.huhuiyu.api.utils.StringUtils;
  */
 public class CodeBuilderUtil {
   private static final String   TYPES_FILE            = "/types.json";
-  private static final int      FIDLE_MIN_LENGTH      = 2;
   private static final Random   RAND                  = new Random();
   private static final String   EXT_SPLIT             = ".";
   private static final String   FTL_POSTFIX           = ".ftl";
   private static final String   DIR_SPLIT_ONE         = "/";
   private static final String   DIR_SPLIT_TWO         = "\\";
   private static final String   DIR_SPLIT_TWO_REPLACE = "[\\\\]";
-  private static final String   GETTER                = "get%s";
-  private static final String   SETTER                = "set%s";
-  private static final String   IS_SETTER             = "is%s";
   private String                packageName;
   private Map<String, TypeInfo> typesMap              = new HashMap<>(20);
+  private DbUtils               dbUtils               = new DbUtils();
 
   public CodeBuilderUtil(String packageName) {
     this.packageName = packageName;
@@ -102,7 +100,7 @@ public class CodeBuilderUtil {
    * @return 表对应的类名称
    */
   public String getClassName(TableInfo tableInfo) {
-    return StringUtils.firstToUpper(tableInfo.getName());
+    return dbUtils.getEntityName(tableInfo);
   }
 
   /**
@@ -113,10 +111,7 @@ public class CodeBuilderUtil {
    * @return 列名对应的字段名称
    */
   public String getColFieldName(TableColumnInfo columnInfo) {
-    String label = StringUtils.trim(columnInfo.getLabel());
-    String name  = StringUtils.trim(columnInfo.getName());
-    name = "".equals(label) ? name : label;
-    return getFieldName(name);
+    return dbUtils.getJavaFieldName(columnInfo);
   }
 
   /**
@@ -127,25 +122,25 @@ public class CodeBuilderUtil {
    * @return 表名对应的字段名称
    */
   public String getTableFieldName(TableInfo tableInfo) {
-    return getFieldName(tableInfo.getName());
+    return dbUtils.getEntityFieldName(tableInfo);
   }
 
-  /**
-   * 获取名称对应的字段名称
-   * 
-   * @param name
-   *             对象名
-   * @return 名称对应的字段名称
-   */
-  public String getFieldName(String name) {
-    name = StringUtils.trim(name);
-    if (name.length() <= FIDLE_MIN_LENGTH) {
-      return name.toLowerCase();
-    }
-    else {
-      return name.substring(0, FIDLE_MIN_LENGTH).toLowerCase() + name.substring(FIDLE_MIN_LENGTH);
-    }
-  }
+  // /**
+  // * 获取名称对应的字段名称
+  // *
+  // * @param name
+  // * 对象名
+  // * @return 名称对应的字段名称
+  // */
+  // public String getFieldName(String name) {
+  // name = StringUtils.trim(name);
+  // if (name.length() <= FIDLE_MIN_LENGTH) {
+  // return name.toLowerCase();
+  // }
+  // else {
+  // return name.substring(0, FIDLE_MIN_LENGTH).toLowerCase() + name.substring(FIDLE_MIN_LENGTH);
+  // }
+  // }
 
   /**
    * 获取列名对应的getter名称
@@ -155,7 +150,7 @@ public class CodeBuilderUtil {
    * @return 列名对应的getter名称
    */
   public String getColGetter(TableColumnInfo columnInfo) {
-    return String.format(GETTER, StringUtils.firstToUpper(getColFieldName(columnInfo)));
+    return dbUtils.getJavaGetter(columnInfo);
   }
 
   /**
@@ -166,12 +161,7 @@ public class CodeBuilderUtil {
    * @return 列名对应的setter名称
    */
   public String getColSetter(TableColumnInfo columnInfo) {
-    if (boolean.class.getName().equals(columnInfo.getClassName()) || Boolean.class.getName().equals(columnInfo.getClassName())) {
-      return String.format(IS_SETTER, StringUtils.firstToUpper(getColFieldName(columnInfo)));
-    }
-    else {
-      return String.format(SETTER, StringUtils.firstToUpper(getColFieldName(columnInfo)));
-    }
+    return dbUtils.getJavaSetter(columnInfo);
   }
 
   /**
@@ -198,7 +188,7 @@ public class CodeBuilderUtil {
    * @return 列名对应的getter名称
    */
   public String getTableGetter(TableInfo tableInfo) {
-    return String.format(GETTER, StringUtils.firstToUpper(getTableFieldName(tableInfo)));
+    return dbUtils.getTableGetter(tableInfo);
   }
 
   /**
@@ -209,7 +199,7 @@ public class CodeBuilderUtil {
    * @return 表名对应的setter名称
    */
   public String getTableSetter(TableInfo tableInfo) {
-    return String.format(SETTER, StringUtils.firstToUpper(getTableFieldName(tableInfo)));
+    return dbUtils.getTableSetter(tableInfo);
   }
 
   /**

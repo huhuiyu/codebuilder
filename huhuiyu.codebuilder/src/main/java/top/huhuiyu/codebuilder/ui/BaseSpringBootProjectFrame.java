@@ -97,22 +97,23 @@ public abstract class BaseSpringBootProjectFrame extends JFrame implements Actio
 
   private void setTestDefault() {
     // 测试用默认值
-    // tfProjectName.setText("express-service");
-    // tfPackageName.setText("top.huhuiyu.express");
+    tfProjectName.setText("MybatisPlusStudy");
+    tfPackageName.setText("top.huhuiyu.mybatisplus");
+    tfAuthor.setText("胡辉煜");
+    tfIp.setText("39.108.124.237");
+    tfPort.setText("3306");
+    tfUsername.setText("test-projects");
+    tfPassword.setText("Test4-sql");
+    tfDatabase.setText("mybatis_plus_study");
+    // tfProjectName.setText("CDXP1688DataService");
+    // tfPackageName.setText("com.cdxp1688.dataservice");
     // tfAuthor.setText("胡辉煜");
     // tfIp.setText("39.108.124.237");
     // tfPort.setText("3306");
     // tfUsername.setText("test-projects");
     // tfPassword.setText("Test4-sql");
-    // tfDatabase.setText("express");
-    tfProjectName.setText("DbCodeBuilder");
-    tfPackageName.setText("top.huhuiyu.codebuilder");
-    tfAuthor.setText("胡辉煜");
-    tfIp.setText("47.112.201.2");
-    tfPort.setText("3306");
-    tfUsername.setText("leseul");
-    tfPassword.setText("XiJun-123");
-    tfDatabase.setText("DbCodeBuilder");
+    // tfDatabase.setText("CDXP1688");
+
     tfOutputDir.setText("d:\\output");
   }
 

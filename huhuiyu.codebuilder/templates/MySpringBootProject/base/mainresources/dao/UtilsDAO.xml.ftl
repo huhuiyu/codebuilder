@@ -16,7 +16,7 @@
 
   <!-- 查询token信息 -->
   <select id="queryTokenInfo" parameterType="TbTokenInfo" resultType="TbTokenInfo">
-    select token,info_key 'infoKey',info,lastupdate from tb_token_info
+    select token,info_key,info,lastupdate from tb_token_info
     where token=${r'#'}{token} and info_key=${r'#'}{infoKey}
   </select>
 
@@ -43,7 +43,7 @@
 
   <!-- 查询系统配置信息 -->
   <select id="queryConfig" parameterType="TbConfig" resultType="TbConfig">
-    select cid,config_key 'configKey',config_value 'configValue',lastupdate from tb_config
+    select cid,config_key,config_value,lastupdate from tb_config
     where config_key=${r'#'}{configKey}
   </select>
 

@@ -16,7 +16,7 @@
   <select id="queryByKey" parameterType="${builderUtil.getClassName(tableInfo)}" resultType="${builderUtil.getClassName(tableInfo)}">
     select <#list tableInfo.columnInfos as col>${col.name}<#if col_has_next>,</#if></#list> from ${tableInfo.name} 
 <#if tableInfo.getPrimaryKeys()?size &gt; 0>
-    where <#list tableInfo.getPrimaryKeys() as col><#if col_index &gt; 0> and </#if>${col.name}=${r'#'}{${col.name}}</#list>
+    where <#list tableInfo.getPrimaryKeys() as col><#if col_index &gt; 0> and </#if>${col.name}=${r'#'}{${builderUtil.getColFieldName(col)}}</#list>
 <#else>
     没有主键列，请自己补全判断条件！！！
 </#if>
@@ -24,13 +24,13 @@
   
   <insert id="add" parameterType="${builderUtil.getClassName(tableInfo)}">
     insert into ${tableInfo.name}(<#list tableInfo.getNotPrimaryKeys() as col>${col.name}<#if col_has_next>,</#if></#list>)
-    values(<#list tableInfo.getNotPrimaryKeys() as col>${r'#'}{${col.name}}<#if col_has_next>,</#if></#list>)
+    values(<#list tableInfo.getNotPrimaryKeys() as col>${r'#'}{${builderUtil.getColFieldName(col)}}<#if col_has_next>,</#if></#list>)
   </insert>
   
   <update id="update" parameterType="${builderUtil.getClassName(tableInfo)}">
-    update ${tableInfo.name} set <#list tableInfo.getNotPrimaryKeys() as col>${col.name}=${r'#'}{${col.name}}<#if col_has_next>,</#if></#list>
+    update ${tableInfo.name} set <#list tableInfo.getNotPrimaryKeys() as col>${col.name}=${r'#'}{${builderUtil.getColFieldName(col)}}<#if col_has_next>,</#if></#list>
 <#if tableInfo.getPrimaryKeys()?size &gt; 0>
-    where <#list tableInfo.getPrimaryKeys() as col><#if col_index &gt; 0> and </#if>${col.name}=${r'#'}{${col.name}}</#list>
+    where <#list tableInfo.getPrimaryKeys() as col><#if col_index &gt; 0> and </#if>${col.name}=${r'#'}{${builderUtil.getColFieldName(col)}}</#list>
 <#else>
     没有主键列，请自己补全判断条件！！！
 </#if>
@@ -39,7 +39,7 @@
   <delete id="delete" parameterType="${builderUtil.getClassName(tableInfo)}" >
     delete from ${tableInfo.name}
 <#if tableInfo.getPrimaryKeys()?size &gt; 0>
-    where <#list tableInfo.getPrimaryKeys() as col><#if col_index &gt; 0> and </#if>${col.name}=${r'#'}{${col.name}}</#list>
+    where <#list tableInfo.getPrimaryKeys() as col><#if col_index &gt; 0> and </#if>${col.name}=${r'#'}{${builderUtil.getColFieldName(col)}}</#list>
 <#else>
     没有主键列，请自己补全判断条件！！！
 </#if>
