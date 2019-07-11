@@ -97,14 +97,14 @@ public abstract class BaseSpringBootProjectFrame extends JFrame implements Actio
 
   private void setTestDefault() {
     // 测试用默认值
-    tfProjectName.setText("MybatisPlusStudy");
-    tfPackageName.setText("top.huhuiyu.mybatisplus");
+    tfProjectName.setText("OnlineExamService");
+    tfPackageName.setText("top.huhuiyu.onlineexam");
     tfAuthor.setText("胡辉煜");
     tfIp.setText("39.108.124.237");
     tfPort.setText("3306");
     tfUsername.setText("test-projects");
     tfPassword.setText("Test4-sql");
-    tfDatabase.setText("mybatis_plus_study");
+    tfDatabase.setText("online_exam");
     // tfProjectName.setText("CDXP1688DataService");
     // tfPackageName.setText("com.cdxp1688.dataservice");
     // tfAuthor.setText("胡辉煜");
