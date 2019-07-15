@@ -1,7 +1,7 @@
 package ${builderUtil.getSubPackage("base")};
 
 import io.swagger.annotations.ApiParam;
-import top.huhuiyu.api.utils.mybase.BaseModel;
+import top.huhuiyu.api.utils.mybase.BaseEntity;
 import ${builderUtil.getSubPackage("entity")}.TbAdmin;
 import ${builderUtil.getSubPackage("entity")}.TbTokenInfo;
 
@@ -10,13 +10,23 @@ import ${builderUtil.getSubPackage("entity")}.TbTokenInfo;
  * 
  * @author ${baseInfo.author}
  */
-public class MyBaseModel extends BaseModel {
+public class MyBaseModel extends BaseEntity {
   private static final long serialVersionUID = ${builderUtil.serialVersionUID};
+  @ApiParam(hidden = true)
+  private String            token;
   @ApiParam(hidden = true)
   private String            imageCode;
   private TbAdmin           loginAdmin;
   
   public MyBaseModel() {
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  public void setToken(String token) {
+    this.token = token;
   }
 
   /**

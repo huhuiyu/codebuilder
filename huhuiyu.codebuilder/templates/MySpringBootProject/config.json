@@ -100,6 +100,10 @@
     "outpath": "src/main/java",
     "subpackage": "utils"
   }, {
+    "templatePath": "base/mainjava/ws",
+    "outpath": "src/main/java",
+    "subpackage": "ws"
+  }, {
     "templatePath": "base/mainresources",
     "outpath": "src/main/resources"
   }, {

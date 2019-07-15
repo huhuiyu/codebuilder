@@ -1,5 +1,6 @@
 package ${builderUtil.getSubPackage("aop")};
 
+import javax.servlet.http.HttpServletRequest;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import top.huhuiyu.api.utils.mybase.INoToken;
 import top.huhuiyu.api.utils.mybase.JsonMessage;
 import ${builderUtil.getSubPackage("base")}.MyBaseModel;
@@ -99,6 +103,10 @@ public class ControllerToken extends BaseControllerAop {
     }
     MyBaseModel model = getMyBaseModel(pjp);
     if (model != null) {
+      RequestAttributes        ra      = RequestContextHolder.getRequestAttributes();
+      ServletRequestAttributes sra     = (ServletRequestAttributes) ra;
+      HttpServletRequest       request = sra.getRequest();
+      model.setToken(request.getHeader("token"));
       TbTokenInfo token = model.makeTbTokenInfo();
       // 校验并更新token信息
       token = utilService.checkToken(token);

@@ -71,7 +71,9 @@ dependencies {
   // swagger-ui-layer界面依赖
   compile group: 'com.github.caspar-chen', name: 'swagger-ui-layer', version: '1.1.3'
   // huhuiyu的api
-  compile group: 'top.huhuiyu.api', name: 'huhuiyu-fileutils', version: '1.1.1'
+  compile group: 'top.huhuiyu.api', name: 'huhuiyu-fileutils', version: '1.1.2'
+  // websocket
+  compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.1.5.RELEASE'
   //springboot测试依赖
   testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.5.RELEASE'
 }

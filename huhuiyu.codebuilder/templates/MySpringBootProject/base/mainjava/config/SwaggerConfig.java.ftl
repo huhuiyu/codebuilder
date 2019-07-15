@@ -11,6 +11,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
@@ -32,7 +33,7 @@ public class SwaggerConfig {
   public Docket createRestApi() {
     ParameterBuilder pb   = new ParameterBuilder();
     List<Parameter>  list = new ArrayList<>();
-    pb.name("token").description("用户认证令牌").parameterType("query").required(true).build();
+    pb.name("token").description("用户认证令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
     list.add(pb.build());
     return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.any()).paths(Predicates.not(PathSelectors.regex("/error.*"))).build().globalOperationParameters(list);
   }
