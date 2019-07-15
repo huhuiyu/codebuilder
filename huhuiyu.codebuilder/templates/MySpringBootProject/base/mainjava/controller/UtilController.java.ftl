@@ -1,9 +1,9 @@
 package ${builderUtil.getSubPackage("controller")};
 
-import java.io.OutputStream;
+import org.springframework.util.Base64Utils;
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,16 +37,14 @@ public class UtilController {
   }
 
   @ApiOperation(value = "图片验证码")
-  @GetMapping("/validate.jpg")
-  public void imageCode(UtilModel model, HttpServletResponse response) throws Exception {
-    // 自定义应答类型为图片
-    response.setContentType("image/jpeg");
-    // 获取图片校验码
-    String code = utilService.makeImageCode(model.getToken());
-    // 将图片通过response输出
-    OutputStream os = response.getOutputStream();
-    ImageIO.write(ImageCode.makeImage(code), "jpeg", os);
-    os.close();
+  @GetMapping("/imageCode")
+  public JsonMessage imageCode(UtilModel model) throws Exception {
+    String                code = utilService.makeImageCode(model.getToken());
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    ImageIO.write(ImageCode.makeImage(code), "jpeg", baos);
+    byte[] bytes  = baos.toByteArray();
+    String base64 = Base64Utils.encodeToString(bytes).trim();
+    return JsonMessage.getSuccess(String.format("data:image/jpg;base64,%s", base64));
   }
 
   @ApiOperation(value = "管理员登陆")
